@@ -26,6 +26,7 @@ module ReferenceDeployment {
     instance rateGroupDriver
     instance timer
     instance comDriver
+    instance sensorHub
 
   # ----------------------------------------------------------------------
   # Pattern graph specifiers
@@ -88,10 +89,19 @@ module ReferenceDeployment {
       rateGroup1Hz.RateGroupMemberOut[2] -> ComCcsds.commsBufferManager.schedIn
       rateGroup1Hz.RateGroupMemberOut[3] -> CdhCore.tlmSend.Run
       rateGroup1Hz.RateGroupMemberOut[4] -> ComCcsds.aggregator.timeout
+      rateGroup1Hz.RateGroupMemberOut[5] -> sensorHub.schedIn
     }
 
     connections ReferenceDeployment {
 
+    }
+
+    connections SensorHub {
+      # SensorHub connections
+      sensorHub.timeGetOut -> chronoTime.timeGetPort
+      sensorHub.tlmOut -> CdhCore.tlmSend.TlmRecv
+      sensorHub.eventOut -> CdhCore.events.LogRecv
+      sensorHub.textEventOut -> CdhCore.textLogger.TextLogger
     }
 
   }
