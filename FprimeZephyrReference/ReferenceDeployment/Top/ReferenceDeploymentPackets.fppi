@@ -1,5 +1,4 @@
 telemetry packets ReferenceDeploymentPackets {
-
   packet Health id 1 group 1 {
     CdhCore.cmdDisp.CommandsDispatched
     CdhCore.cmdDisp.CommandsDropped
@@ -7,8 +6,12 @@ telemetry packets ReferenceDeploymentPackets {
     ComCcsds.commsBufferManager.HiBuffs
     ReferenceDeployment.rateGroup10Hz.RgMaxTime
     ReferenceDeployment.rateGroup1Hz.RgMaxTime
+    # SensorHub telemetry channels - ADDED
+    ReferenceDeployment.sensorHub.Temperature
+    ReferenceDeployment.sensorHub.Pressure
+    ReferenceDeployment.sensorHub.ReadCount
+    ReferenceDeployment.sensorHub.ErrorCount
   }
-
   packet HealthWarnings id 2 group 1 {
     CdhCore.$health.PingLateWarnings
     ComCcsds.commsBufferManager.NoBuffs
@@ -16,22 +19,26 @@ telemetry packets ReferenceDeploymentPackets {
     ReferenceDeployment.rateGroup10Hz.RgCycleSlips
     ReferenceDeployment.rateGroup1Hz.RgCycleSlips
   }
-
-
   packet HealthAuxillary id 3 group 2 {
     ComCcsds.commsBufferManager.TotalBuffs
     ComCcsds.commsBufferManager.CurrBuffs
     ComCcsds.comQueue.buffQueueDepth
     CdhCore.tlmSend.SendLevel
   }
-
-  packet Version id 4 group 3 {
+  packet SensorData id 4 group 2 {
+    # Additional SensorHub IMU data - ADDED NEW PACKET
+    ReferenceDeployment.sensorHub.GyroX
+    ReferenceDeployment.sensorHub.GyroY
+    ReferenceDeployment.sensorHub.GyroZ
+    ReferenceDeployment.sensorHub.AccelX
+    ReferenceDeployment.sensorHub.AccelY
+    ReferenceDeployment.sensorHub.AccelZ
+  }
+  packet Version id 5 group 3 {
     CdhCore.version.FrameworkVersion
     CdhCore.version.ProjectVersion
     CdhCore.version.LibraryVersion01
   }
-
-
 } omit {
   CdhCore.cmdDisp.CommandErrors
   # Only has one library, no custom versions
